@@ -1,0 +1,8 @@
+void main() {
+	int first;
+	in second;
+	first = 5;
+	second = 7;
+
+	return (first + second);
+}

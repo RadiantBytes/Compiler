@@ -1,0 +1,10 @@
+1. int add (int a, int b) {
+2. 	return a + b;
+3. }
+4. 
+5. void main() {
+6. 	int a = 2;
+7. 	int b = 6;
+8. 
+9. 	int c = add(a, b);
+10. }

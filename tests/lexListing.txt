@@ -1,0 +1,12 @@
+1. test
+   ^
+Illegal Character in lex
+
+2. Line 2
+   ^
+Illegal Character in lex
+
+3. Another Test
+                ^
+Illegal Character in lex
+
