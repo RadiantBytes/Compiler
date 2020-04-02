@@ -10,7 +10,7 @@ int main(int argc, char * argv[]) {
 
   table = createSymTab(1024);
 
-  if (!openFiles(argv[1], "listing")) {
+  if (!openFiles(argv[1], argv[2])) {
     printf("Open failed\n");
     exit(0);
   }

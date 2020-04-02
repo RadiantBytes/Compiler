@@ -1,0 +1,8 @@
+5 + ((5 / 5)*5) - 5 = 5
+Invalid Symbol~
+Two$Invalid%Symbols
+Test@	%
+aaaaaa	aaaa
+Invalid
+#Invalid#
+``Two~~

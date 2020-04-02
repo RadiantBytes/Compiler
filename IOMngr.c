@@ -69,7 +69,6 @@ int openFiles(char * sourceName,  char * listingName) {
 
 
 	// Initiate the	buffer to the first line in the source file
-	setBuffer(1);
 
 
 
@@ -92,24 +91,17 @@ char getNextSourceChar() {
 
 // Don't skip over the char at line 0 col 0
 
-printf("Checking %c ", lineBuffer[currCol]);
+//printf("Checking %c ", lineBuffer[currCol]);
 
-if (lineBuffer[currCol] == EOF) {
-	return EOF;
-}
 
 // Parse non-null char in the current lineBuffer
-else if (lineBuffer[currCol] != '\0') {
-		if (lineBuffer[currCol] == '\t') {
-			currCol += 4;
-		}
-		else {
+if (lineBuffer[currCol] != '\0') {
+		//if (lineBuffer[currCol] == '\t') {
+		//	currCol += 1;
+	//	}
+	//	else {
 			currCol++;
-		}
-		if (lineBuffer[currCol] == '\n') {
-
-			writeMessage(lineBuffer);
-		}
+	//	}
 
 		return lineBuffer[currCol];
 	}
@@ -118,24 +110,58 @@ else if (lineBuffer[currCol] != '\0') {
 	// If end of the current line was reached, check the next line of the source file
 	else {
 		if (setBuffer(currLine+1)) {
-			if (lineBuffer[currCol] == '\n') {
-				writeMessage(lineBuffer);
-			}
+
 			currCol++;
 			return lineBuffer[currCol];
 		}
+
 }
 
 	// If reached, the source file has been fully parsed
 	//printf("#End of source file parsed in IOMnger");
+
 	return EOF;
 
 }
 
 void writeIndicator(int column) {
 
-	//printf("\n#Writing indicator on line %d\n", column);
 	column++;
+
+	//*************************************************
+	//Account for tabs in a line here, adjust indicator location if needed
+	//A tab will jump to the next index divisable by 8
+	//So, exact spacing various
+
+	// Use a temp int; don't want to mess up loop iterator when column value changes
+	int temp = column;
+	int num_tabs = 0;
+	int i = 0;
+	int tab_spacing = 0;
+
+	int nextTabStop;
+
+	for (i; i < temp; i++) {
+		if (lineBuffer[i] == '\t') {
+
+			num_tabs++;
+
+			// The tab spacing will always jump to next index divisible by 8
+			// Find a factor of 8 that is >= i (index count)
+			nextTabStop = (i + 8) / 8 * 8;
+
+			if (num_tabs == 1)
+				column += (nextTabStop - i) - 1;
+			else
+				column += (nextTabStop - i) + (num_tabs - 2);
+
+		}
+	}
+
+	//*************************************************
+
+
+
 	if (listingfp) {
 		// Must account for line numbering
 		char temp[MAXLINE];
@@ -193,18 +219,16 @@ int setBuffer(int lineNum) {
 		if (count == lineNum) {
 			currLine = lineNum;
 
-			// First line WILL NOT be parsed without this clause present
-			// I don't know why this works as a fix
-			if (lineNum == 1)
-				currCol = 0;
-			else
-				currCol = -1;
+			currCol = -1;
 
 
 
 			// Check for a blank line here to save runtime
-			if (lineBuffer[0] == '\n')
-				writeMessage("\n");
+			// if (lineBuffer[0] == '\n') {
+			// 	writeMessage("\n");
+			// }
+
+			writeMessage(lineBuffer);
 
 			return 1;
 		}

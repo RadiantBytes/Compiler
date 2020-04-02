@@ -16,21 +16,20 @@ digit[0-9]
 {letter}({letter}|{digit})*		{return Ident;}
 {digit}{digit}*								{return Int;}
 
-[*]                           {return '*';}
-[+]                           {return '+';}
-[-]                           {return '-';}
-[=]                           {return '=';}
-[!]                           {return '!';}
-[;]                           {return ';';}
-[(]                           {return '(';}
-[)]                           {return ')';}
+\*                            {return '*';}
+\+                            {return '+';}
+\-                            {return '-';}
+\=                            {return '=';}
+\;                            {return ';';}
+\(                            {return '(';}
+\)                            {return ')';}
 [ ]                           {}
 [\t\n]                        {}
-
+[\00]													{}
 
 .                             {
                                 writeIndicator(getCurrentColumnNum());
-                                writeError("Illegal Character in lex");
+                                writeError("Illegal Character in LEX");
                               }
 
 %%

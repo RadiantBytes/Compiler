@@ -36,31 +36,30 @@ extern SymEntry *entry;
 
 %%
 
-Prog        :   StmtSeq           {printf("StmtSeq > "); printSymTab();}
+Prog        :   StmtSeq           {printSymTab();}
             ;
-StmtSeq     :   Stmt StmtSeq      {printf("Stmt StmtSeq > "); }
-            |                     {printf("#empty > "); }
+StmtSeq     :   Stmt StmtSeq      {}
+            |                     {}
             ;
-Stmt        :   Id '=' Expr ';'   {printf("Id = Expr ; : $3 is %d", $3); storeVar($1, $3);}
+Stmt        :   Id '=' Expr ';'   {storeVar($1, $3);}
             ;
-Expr        :   Expr '+' Term     {printf("Expr + Term > "); $$ = doAdd($1, $3);}
-            |   Term              {printf("Term > "); $$ = $1;}
+Expr        :   Expr '+' Term     {$$ = doAdd($1, $3);}
+            |   Term              {$$ = $1;}
             ;
-Term        :   Term '*' Factor   {printf("Term * Factor > "); $$ = doMult($1, $3);}
-            |   Factor            {printf("Factor > "); $$ = $1;}
+Term        :   Term '*' Factor   {$$ = doMult($1, $3);}
+            |   Factor            {$$ = $1;}
             ;
-Factor      :   '-'Factor         {printf("-Factor ; > "); $$ = doNegative($2); printf(" $$ is now %d ", $$);}
-            |   '(' Expr ')'      {printf("( Exper ) > "); $$ = $2;}
-            |   Id                {printf("Id > "); $$ = getVal($1);}
-            |   Int               {printf("Int > "); $$ = atoi(yytext);}
+Factor      :   '-'Factor         {$$ = doNegative($2);}
+            |   '(' Expr ')'      {$$ = $2;}
+            |   Id                {$$ = getVal($1);}
+            |   Int               {$$ = atoi(yytext);}
             ;
-Id          :   Ident             {printf("Ident > "); $$ = strdup(yytext);}
+Id          :   Ident             {$$ = strdup(yytext);}
             ;
 
 %%
 
 int yyerror(char *s) {
-  printf("\nIn yyerror: %s\n", s);
   writeIndicator(getCurrentColumnNum());
   writeError("Illegal Character in YACC");
   return 1;

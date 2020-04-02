@@ -41,6 +41,10 @@ void destroySymTab(SymTab *table);
 //recover space created by the symbol table functions
 //no functions should use the symbol table after it is destroyed
 
+int isEmpty(SymTab * table);
+// Determine if a SymTab is empty (contains no contents)
+// Return: 1 if empty; 0 if non-empty
+
 int enterName(SymTab * table, char *name);
 /*if name is not in the symbol table, a copy of name is added to the symbol table
   with a NULL attribute, set current to reference the new (name, attribute) pair

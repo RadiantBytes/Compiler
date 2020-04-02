@@ -65,6 +65,17 @@ void destroySymTab(SymTab *table) {
 	printf("\n#SymTab destroyed\n");
 }
 
+int isEmpty(SymTab * table) {
+	int i;
+	for (i = 0; i < table->size; i++) {
+
+		if (table->contents[i] != NULL)
+			return 0;
+
+	}
+	return 1;
+}
+
 int enterName(SymTab * table, char *name) {
 
 	// check if the name already exists in the SymTab
@@ -99,7 +110,7 @@ int enterName(SymTab * table, char *name) {
 	table->current = newSymEntry;
 	symTabCurrBucket = bucketNum;
 
-	printf("#Added %s successfully into hash bucket %d\n", name, bucketNum);
+	//printf("#Added %s successfully into hash bucket %d\n", name, bucketNum);
 	return 1;
 }
 

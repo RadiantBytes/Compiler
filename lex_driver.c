@@ -7,6 +7,10 @@
 extern int yylex();
 extern char *yytext;
 
+int yywrap() {
+	return(1);
+}
+
 // Print the contents of a SymTab to stdout
 void printSymTabContents(SymTab *table) {
 
@@ -220,9 +224,12 @@ opTable:  Store number of occurances of each op in the source file
 	printf("\n____________________________\n");
 
 
-  printSymTabContents(intTable);
-	printSymTabContents(idTable);
-	//printSymTabContents(opTable);
+	if (!isEmpty(idTable))
+		printSymTabContents(idTable);
+	if (!isEmpty(intTable))
+  	printSymTabContents(intTable);
+	if (!isEmpty(opTable))
+		printSymTabContents(opTable);
 
 	closeFiles();
 

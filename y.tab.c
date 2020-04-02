@@ -1226,79 +1226,79 @@ yyreduce:
     {
         case 2:
 #line 39 "boolExpr.y" /* yacc.c:1646  */
-    {printf("StmtSeq > "); printSymTab();}
+    {printSymTab();}
 #line 1231 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 3:
 #line 41 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Stmt StmtSeq > "); }
+    {}
 #line 1237 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
 #line 42 "boolExpr.y" /* yacc.c:1646  */
-    {printf("#empty > "); }
+    {}
 #line 1243 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
 #line 44 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Id = Expr ; : $3 is %d", (yyvsp[-1].integer)); storeVar((yyvsp[-3].string), (yyvsp[-1].integer));}
+    {storeVar((yyvsp[-3].string), (yyvsp[-1].integer));}
 #line 1249 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 46 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Expr + Term > "); (yyval.integer) = doAdd((yyvsp[-2].integer), (yyvsp[0].integer));}
+    {(yyval.integer) = doAdd((yyvsp[-2].integer), (yyvsp[0].integer));}
 #line 1255 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
 #line 47 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Term > "); (yyval.integer) = (yyvsp[0].integer);}
+    {(yyval.integer) = (yyvsp[0].integer);}
 #line 1261 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
 #line 49 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Term * Factor > "); (yyval.integer) = doMult((yyvsp[-2].integer), (yyvsp[0].integer));}
+    {(yyval.integer) = doMult((yyvsp[-2].integer), (yyvsp[0].integer));}
 #line 1267 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
 #line 50 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Factor > "); (yyval.integer) = (yyvsp[0].integer);}
+    {(yyval.integer) = (yyvsp[0].integer);}
 #line 1273 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
 #line 52 "boolExpr.y" /* yacc.c:1646  */
-    {printf("-Factor ; > "); (yyval.integer) = doNegative((yyvsp[0].integer)); printf(" $$ is now %d ", (yyval.integer));}
+    {(yyval.integer) = doNegative((yyvsp[0].integer));}
 #line 1279 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 53 "boolExpr.y" /* yacc.c:1646  */
-    {printf("( Exper ) > "); (yyval.integer) = (yyvsp[-1].integer);}
+    {(yyval.integer) = (yyvsp[-1].integer);}
 #line 1285 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
 #line 54 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Id > "); (yyval.integer) = getVal((yyvsp[0].string));}
+    {(yyval.integer) = getVal((yyvsp[0].string));}
 #line 1291 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 55 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Int > "); (yyval.integer) = atoi(yytext);}
+    {(yyval.integer) = atoi(yytext);}
 #line 1297 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 57 "boolExpr.y" /* yacc.c:1646  */
-    {printf("Ident > "); (yyval.string) = strdup(yytext);}
+    {(yyval.string) = strdup(yytext);}
 #line 1303 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1535,7 +1535,6 @@ yyreturn:
 
 
 int yyerror(char *s) {
-  printf("\nIn yyerror: %s\n", s);
   writeIndicator(getCurrentColumnNum());
   writeError("Illegal Character in YACC");
   return 1;
